@@ -3,9 +3,12 @@
     <title>Upload</title>
 </head>
 <body>
+
+<img id="my_image" src="static/noPicture.png"/>
+
 <form method="POST" enctype="multipart/form-data" action="{{ url_for('post') }}">
     <input type="file" name="photo" onchange="log()">
-    <input type="submit">
+    <input type="submit" value = "Search">
 </form>
 </body>
 
