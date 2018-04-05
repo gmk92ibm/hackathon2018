@@ -4,10 +4,13 @@
 </head>
 <body>
   <img src="/static/{{ image }}">
+  <div id="out"></div>
 </body>
 
 <script type="text/javascript">
-    console.log({{ data|tojson }}['text']);
+    var x = {{ data|tojson }};
+
+    document.getElementById('out').innerHTML = '<p>'+ JSON.stringify(x) +'</p>'
 </script>
 
 </html>
