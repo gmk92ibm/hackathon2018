@@ -30,7 +30,20 @@ def post():
     print image
 
     with open('./static/' + image, 'rb') as images_file:
-        classes = visual_recognition.classify(images_file,classifier_ids=['food_493541751'],threshold=0.0)
+        results = visual_recognition.classify(images_file,classifier_ids=['food_493541751'],threshold=0.0)
+
+    classes = results['images'][0]['classfiers'][0]
+
+    max_score = classes[0]['score']
+
+    max_class = classes[0]['classes']
+
+    for x in classes:
+        if x['score'] > max_score:
+            max_score = x['score']
+            max_class = x['class']
+
+    print max_class
 
     print(json.dumps(classes, indent=2))
 
