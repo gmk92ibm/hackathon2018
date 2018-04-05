@@ -1,44 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="utf-8">
-  <title> Flask jQuery AJAX </title>
+    <title>Upload</title>
 </head>
-
 <body>
-  Enter input:
-  <br>
-  <input type="text" id="text" value="" />
-  <br>
-  <input type="submit" value="get" onclick="get()" />
-  <input type="submit" value="post" onclick="post()" />
+<form method="POST" enctype="multipart/form-data" action="{{ url_for('post') }}">
+    <input type="file" name="photo" onchange="log()">
+    <input type="submit">
+</form>
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 
-<script>
-  function get(){
-    var text = $('#text').val()
-
-    $.get('./get', {'text' : text})
-     .done(function(data){ alert(JSON.stringify(data)) })
-
-/*      $.ajax({
-            method: 'GET',
-            url: './get',
-            contentType: 'application/json',
-            data: {'text' : text}
-          })
-     .done(function(data){ alert(data) }) */
-  }
-
-  function post(){
-    var text = $('#text').val()
-
-    $.post('./post', {'text' : text})
-     .done((data) => alert(JSON.stringify(data)))
-  }
+<script type="text/javascript">
+  function log(){
+    console.log('here');
+  };
 </script>
 
 </html>
