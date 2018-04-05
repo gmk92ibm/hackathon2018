@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import json
+import requests
 from flask import Flask, render_template, request
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from watson_developer_cloud import VisualRecognitionV3
@@ -27,16 +28,14 @@ def index():
 def post():
     image = photos.save(request.files['photo'])
 
-    print image
-
     with open('./static/' + image, 'rb') as images_file:
         results = visual_recognition.classify(images_file,classifier_ids=['food_493541751'],threshold=0.0)
 
-    classes = results['images'][0]['classfiers'][0]
+    classes = results['images'][0]['classifiers'][0]['classes']
 
-    max_score = classes[0]['score']
+    max_score = 0
 
-    max_class = classes[0]['classes']
+    max_class = ''
 
     for x in classes:
         if x['score'] > max_score:
@@ -45,9 +44,21 @@ def post():
 
     print max_class
 
-    print(json.dumps(classes, indent=2))
+    app_id  = 'a7965555'
+    app_key = '23c96db4a0d2f7928414cd96f5cdc8c4'
 
-    data = {'text': 'asdf'}
+    params = {'q': max_class, 'app_id': app_id, 'app_key': app_key}
+
+    r = requests.get('https://api.edamam.com/search', params=params)
+
+    receipes = []
+
+    for x in r.json()['hits']:
+        receipes.append(x['recipe'])
+
+    print receipes
+
+    data = {'receipes': receipes}
 
     return render_template('image.html', image=image, data=data)
 
