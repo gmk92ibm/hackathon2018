@@ -7,10 +7,17 @@
   <div id="out"></div>
 </body>
 
-<script type="text/javascript">
-    var x = {{ data|tojson }};
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    document.getElementById('out').innerHTML = '<p>'+ JSON.stringify(x) +'</p>'
+<script type="text/javascript">
+    var data = {{ data|tojson }};
+
+    for(var i = 0; i < data['recipes'].length; i++) {
+      $('#out').append('<p>' + data['recipes'][i]['title'] + '</p>');
+      $('#out').append('<p>' + data['recipes'][i]['url'] + '</p>');
+      $('#out').append('<br>');
+    }
+
 </script>
 
 </html>
