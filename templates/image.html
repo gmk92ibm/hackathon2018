@@ -13,7 +13,7 @@
     var data = {{ data|tojson }};
 
     for(var i = 0; i < data['recipes'].length; i++) {
-      $('#out').append('<p>' + data['recipes'][i]['title'] + '</p>');
+      $('#out').append('<p>' + data['recipes'][i]['label'] + '</p>');
       $('#out').append('<p>' + data['recipes'][i]['url'] + '</p>');
       $('#out').append('<br>');
     }

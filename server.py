@@ -51,17 +51,12 @@ def post():
 
     r = requests.get('https://api.edamam.com/search', params=params)
 
-    data = {'recipes': []}
+    recipes = []
 
     for x in r.json()['hits']:
-        print x['recipe']['label']
-        print x['recipe']['url']
-        tmp = {}
-        tmp['title'] = x['recipe']['label']
-        tmp['url'] = x['recipe']['url']
-        data['recipes'].append(tmp)
+        recipes.append(x['recipe'])
 
-    print data
+    data = {'recipes': recipes}
 
     return render_template('image.html', image=image, data=data)
 
